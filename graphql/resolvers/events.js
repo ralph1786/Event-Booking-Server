@@ -18,11 +18,12 @@ module.exports = {
     if (!req.isAuth) {
       throw new Error("Unauthenticated!");
     }
-    const { title, description, price, date } = args.eventInput;
+    const { title, description, price, date, poster } = args.eventInput;
     const newEvent = new Event({
       title,
       description,
       price,
+      poster,
       date: new Date(date),
       creator: req.userId
     });

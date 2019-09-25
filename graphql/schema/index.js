@@ -14,6 +14,7 @@ module.exports = buildSchema(`
             title: String!
             description: String!
             price: Float!
+            poster: String!
             date: String!
             creator: User!
         }
@@ -32,9 +33,10 @@ module.exports = buildSchema(`
         }
 
         input EventInput {
-           title: String!
+            title: String!
             description: String!
             price: Float!
+            poster: String!
             date: String! 
         }
 
