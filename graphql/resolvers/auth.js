@@ -8,7 +8,7 @@ module.exports = {
     try {
       const user = await User.findOne({ email: email });
       if (user) {
-        throw new Error("User Exists");
+        throw new Error("User already exists, please login.");
       }
       const hashedPassword = await bcrypt.hash(password, 12);
       const newUser = new User({
@@ -27,7 +27,7 @@ module.exports = {
     try {
       const user = await User.findOne({ email: email });
       if (!user) {
-        throw new Error("User does not exist");
+        throw new Error("User does not exist.");
       }
       //this compares the password sent on the request with the hashed password stored in the database.
       const isEqual = await bcrypt.compare(password, user.password);
@@ -47,6 +47,9 @@ module.exports = {
         token: token,
         tokenExpiration: 1
       };
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 };
