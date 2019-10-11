@@ -1,5 +1,6 @@
 const Event = require("../../models/event");
 const User = require("../../models/user");
+const Booking = require("../../models/booking");
 const { transformEvent } = require("./merge");
 
 module.exports = {
@@ -41,6 +42,18 @@ module.exports = {
     } catch (err) {
       console.log(err);
       throw err;
+    }
+  },
+  deleteEvent: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated!");
+    }
+    const { eventId } = args;
+    try {
+      await Event.findByIdAndDelete(eventId);
+      await Booking.deleteOne({ event: eventId });
+    } catch (error) {
+      throw error;
     }
   }
 };
