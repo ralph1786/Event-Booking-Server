@@ -29,7 +29,9 @@ module.exports = {
       });
       const savedBooking = await newBooking.save();
       return transformBooking(savedBooking);
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   },
   cancelBooking: async (args, req) => {
     if (!req.isAuth) {
